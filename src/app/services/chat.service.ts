@@ -12,11 +12,25 @@ export class ChatService {
     // this.chats = _angularFireDatabase.list('/chats');
   }
 
+  cargatdata() {
+
+    this.chats = this._angularFireDatabase.list('chats',{
+      query: {
+        limitToLast: 20,
+        orderByKey: true
+      }
+    });
+
+    return this.chats;
+
+  }
+
   agregarmensaje(sms: string) {
 
+    // let mensajedata: Mensaje = {
     let mensajedata = {
       nombre: 'Bruno',
-      mensaje: sms
+      mensajes: sms
     };
 
     return this.chats.push( mensajedata );

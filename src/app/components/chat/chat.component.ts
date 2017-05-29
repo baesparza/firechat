@@ -15,6 +15,11 @@ export class ChatComponent implements OnInit {
     this.mensaje_form = new FormGroup({
       mensaje: new FormControl('', Validators.required)
     });
+
+    this._chatService.cargatdata()
+      .subscribe(() => {
+        console.log('Mensajes Cargados')
+      });
   }
 
   ngOnInit() {
@@ -23,13 +28,12 @@ export class ChatComponent implements OnInit {
   enviar() {
 
     if (this.mensaje_form.valid) {
-      this._chatService.agregarmensaje(this.mensaje_form.value)
-          .then(() => console.log('Enviando...'))
+      this._chatService.agregarmensaje(this.mensaje_form.value.mensaje)
+          .then(() => console.log('Enviado.'))
           .catch((error) => console.error(error));
     }
-    console.log(this.mensaje_form.value);
-    console.log(this.mensaje_form);
-    console.log(this.mensaje_form.valid);
+
+    this.mensaje_form.reset();
   }
 
 }

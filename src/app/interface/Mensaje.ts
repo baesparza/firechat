@@ -1,5 +1,5 @@
 export interface Mensaje {
     nombre: string;
-    mensaje: string;
+    mensajes: string;
     uid?: string;
 }
