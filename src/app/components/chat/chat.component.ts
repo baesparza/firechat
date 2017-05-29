@@ -10,6 +10,7 @@ import { ChatService } from './../../services/chat.service';
 export class ChatComponent implements OnInit {
 
   mensaje_form: FormGroup;
+  elemento: any;
 
   constructor( public _chatService: ChatService ) {
     this.mensaje_form = new FormGroup({
@@ -18,11 +19,15 @@ export class ChatComponent implements OnInit {
 
     this._chatService.cargatdata()
       .subscribe(() => {
-        console.log('Mensajes Cargados')
+        console.log('Mensajes Cargados');
+
+        setTimeout(() => this.elemento.scrollTop = this.elemento.scrollHeight, 50 );
+
       });
   }
 
   ngOnInit() {
+    this.elemento = document.getElementById('app-mensajes');
   }
 
   enviar() {

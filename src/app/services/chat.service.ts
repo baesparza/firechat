@@ -6,6 +6,9 @@ import { Mensaje } from './../interface/Mensaje';
 export class ChatService {
 
   chats: FirebaseListObservable<any[]>;
+  usuario: any = {
+    nombre: 'Bruno'
+  };
 
   constructor(private _angularFireDatabase: AngularFireDatabase) {
 
@@ -30,7 +33,7 @@ export class ChatService {
     // let mensajedata: Mensaje = {
     let mensajedata = {
       nombre: 'Bruno',
-      mensajes: sms
+      mensaje: sms
     };
 
     return this.chats.push( mensajedata );
