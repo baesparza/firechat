@@ -5,10 +5,14 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-import { AppComponent } from './app.component';
+// Services
+import { ChatService } from './services/chat.service';
 
 // firebaseConfig
 import { firebaseConfig } from './../environments/firebase.config';
+
+// Components
+import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
@@ -24,7 +28,9 @@ import { ChatComponent } from './components/chat/chat.component';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    ChatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

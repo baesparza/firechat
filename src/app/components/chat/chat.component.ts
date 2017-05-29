@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChatService } from './../../services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,7 +11,7 @@ export class ChatComponent implements OnInit {
 
   mensaje_form: FormGroup;
 
-  constructor() {
+  constructor( public _chatService: ChatService ) {
     this.mensaje_form = new FormGroup({
       mensaje: new FormControl('', Validators.required)
     });
@@ -22,7 +23,9 @@ export class ChatComponent implements OnInit {
   enviar() {
 
     if (this.mensaje_form.valid) {
-      console.log('Enviando...');
+      this._chatService.agregarmensaje(this.mensaje_form.value)
+          .then(() => console.log('Enviando...'))
+          .catch((error) => console.error(error));
     }
     console.log(this.mensaje_form.value);
     console.log(this.mensaje_form);
