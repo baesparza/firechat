@@ -16,6 +16,6 @@
 
 </div>
 
-<form [formGroup]="mensaje_form" (ngSubmit)="enviar()">
+<form [formGroup]="mensaje_form">
   <input type="text" class="form-control" placeholder="Mensaje..." formControlName="mensaje" (keyup.enter)="enviar()">
 </form>
