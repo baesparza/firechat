@@ -1,3 +1,5 @@
-<h1>
-  {{title}}
-</h1>
+<ul>
+  <li class="text" *ngFor="let chat of chats | async">
+    {{ chat | json }}
+  </li>
+</ul>
