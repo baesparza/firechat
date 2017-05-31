@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
     this._chatService.cargatdata()
       .subscribe(() => {
-        console.log('Mensajes Cargados');
+        // console.log('Mensajes Cargados');
 
         setTimeout(() => this.elemento.scrollTop = this.elemento.scrollHeight, 50 );
 
@@ -34,7 +34,9 @@ export class ChatComponent implements OnInit {
 
     if (this.mensaje_form.valid) {
       this._chatService.agregarmensaje(this.mensaje_form.value.mensaje)
-          .then(() => console.log('Enviado.'))
+          .then(() => {
+            // console.log('Enviado.');
+          })
           .catch((error) => console.error(error));
     }
 

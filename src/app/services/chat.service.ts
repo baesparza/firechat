@@ -27,7 +27,7 @@ export class ChatService {
 
     this.chats = this._angularFireDatabase.list('chats',{
       query: {
-        limitToLast: 20,
+        limitToLast: 35,
         orderByKey: true
       }
     });
@@ -39,8 +39,9 @@ export class ChatService {
   agregarmensaje(sms: string) {
     // let mensajedata: Mensaje = {
     let mensajedata = {
-      nombre: 'Bruno',
-      mensaje: sms
+      nombre: this.usuario.user.displayName,
+      mensaje: sms,
+      uid: this.usuario.user.uid
     };
 
     return this.chats.push( mensajedata );
