@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+import * as firebase from 'firebase/app';
+
 import { Mensaje } from './../interface/Mensaje';
 
 @Injectable()
 export class ChatService {
 
   chats: FirebaseListObservable<any[]>;
-  usuario: any = {
-    nombre: 'Bruno'
-  };
+  usuario: any = {};
 
-  constructor(private _angularFireDatabase: AngularFireDatabase) {
+  constructor(private _angularFireDatabase: AngularFireDatabase,
+              private _angularFireAuth: AngularFireAuth) {
 
-    // this.chats = _angularFireDatabase.list('/chats');
+    if ( localStorage.getItem('usuario') ) {
+      // usuario logeado
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    } else {
+      this.usuario = null;
+    }
   }
 
   cargatdata() {
@@ -29,7 +37,6 @@ export class ChatService {
   }
 
   agregarmensaje(sms: string) {
-
     // let mensajedata: Mensaje = {
     let mensajedata = {
       nombre: 'Bruno',
@@ -38,6 +45,30 @@ export class ChatService {
 
     return this.chats.push( mensajedata );
 
+  }
+
+  login( proveedor: string ) {
+
+    let provider;
+
+    if (proveedor === 'google') {
+      provider = new firebase.auth.GoogleAuthProvider();
+    } else {
+      provider = new firebase.auth.TwitterAuthProvider();
+    }
+
+    this._angularFireAuth.auth.signInWithPopup(provider)
+        .then(data => {
+          // console.log(data);
+          this.usuario = data;
+          localStorage.setItem('usuario', JSON.stringify(data));
+        });
+  }
+
+  logout() {
+    localStorage.removeItem('usuario');
+    this.usuario = null;
+    this._angularFireAuth.auth.signOut();
   }
 
 }
