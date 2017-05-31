@@ -53,7 +53,7 @@ export class ChatService {
 
     if (proveedor === 'google') {
       provider = new firebase.auth.GoogleAuthProvider();
-    } else {
+    } else if (proveedor === 'twitter') {
       provider = new firebase.auth.TwitterAuthProvider();
     }
 
